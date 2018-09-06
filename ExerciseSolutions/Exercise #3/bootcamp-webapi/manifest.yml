@@ -1,0 +1,11 @@
+---
+  applications:
+  - name: core-cf-microservice-martez
+    buildpack: https://github.com/cloudfoundry/dotnet-core-buildpack
+    instances: 1
+    memory: 256M
+    # determines which environment to pull configs from
+    env:
+      ASPNETCORE_ENVIRONMENT: dev
+    services:
+      - myConfigServer
