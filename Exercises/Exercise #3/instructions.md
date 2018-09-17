@@ -1,4 +1,4 @@
-# Exercise #2
+# Exercise #3
 
 ## Goal
 
@@ -12,12 +12,14 @@ ASP.NET Core microservice created and set to use new configuration provider. Ser
 
 In this exercise, we get hands-on with a Git-backed conﬁg store and build an app that consumes it. Point Conﬁg Server to Git repository
 
-1. Create a ﬁle called `config.json` with the following contents. We will use this ﬁle to tell the Conﬁg Server where to get its conﬁgurations from.
+1. Create a ﬁle called `config.json` with the following contents. We will use this ﬁle to tell the Conﬁg Server where to get its configurations from.  The Schwab network will not allow external access to github so we will use a Bitbucket repository on the Schwab network.  The instructor will have further directions on connecting to the Bitbucket repository
 
     ```json
     {
         "git": {
-        "uri": "https://github.com/tezizzm/cloud-native-net-configs"
+        "password": "<bitbucket password>",
+        "uri": "https://<bitbucket Username>@bitbucket.schwab.com/scm/ad00006938/cloud-native-net-config.git",
+        "username": "<bitbucket username>"
         }
     }
     ```
@@ -41,7 +43,7 @@ Here we create a brand new microservice and set it up with the Steeltoe librarie
 3. From the Terminal enter
 
     ```Windows
-        dotnet add package Pivotal.Extensions.Configuration.ConfigServerCore --version 2.1.0
+        dotnet add package Pivotal.Extensions.Configuration.ConfigServerCore --version 2.0.0
     ```
 
 4. Open the newly created folder in Visual Studio Code.
@@ -166,8 +168,9 @@ Next, we add what's needed to make our ASP.NET Core application retrieve it's co
     ---
     applications:
     - name: core-cf-microservice-<enter your name>
-      buildpack: https://github.com/cloudfoundry/dotnet-core-buildpack
+      buildpack: dotnet_core_buildpack_2_1_3
       instances: 1
+      path: .\publish
       memory: 256M
       # determines which environment to pull configs from
       env:
@@ -176,7 +179,9 @@ Next, we add what's needed to make our ASP.NET Core application retrieve it's co
         - <your config server instance name>
     ```
 
-5. Execute `cf push` to deploy this application to Cloud Foundry! Note the route of your microservice:
+5. Build your application using the following command.  `dotnet publish -o .\publish`.
+
+6. Execute `cf push` to deploy this application to Cloud Foundry! Note the route of your microservice:
 
     ```command
     Waiting for app to start...

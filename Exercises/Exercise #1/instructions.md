@@ -73,7 +73,7 @@ You can interact with Cloud Foundry via Dashboard, REST API, or command line int
     sudo yum install cf-cli
     ```
 
-Conﬁrm that it installed successfully by going to a command line, and typing:
+Confirm that it installed successfully by going to a command line, and typing:
 
 ```Windows
     cf -v
@@ -87,7 +87,7 @@ Conﬁrm that it installed successfully by going to a command line, and typing:
 
     ***.NET Core Version 2.1.x is required for this workshop***
 
-2. Conﬁrm that it installed correctly by opening a command line and typing:
+2. Confirm that it installed correctly by opening a command line and typing:
 
     ```Windows
     dotnet --version
@@ -103,7 +103,7 @@ Conﬁrm that it installed successfully by going to a command line, and typing:
 
 Visual Studio Code makes it easy to build new ASP.NET Core projects. We'll create a sample project just to prove we can!
 
-1. Within Visual Studio Code, go to `View → Integrated Terminal`. The Terminal gives you a shell interface without leaving Visual Studio Code.
+1. Within Visual Studio Code, go to `View → Terminal`. The Terminal gives you a shell interface without leaving Visual Studio Code.
 
 2. Navigate to a location where you'll store your project ﬁles (e.g. C:\BootcampLabs) and create a sub-directory called "mvctest" inside.
 
@@ -111,7 +111,7 @@ Visual Studio Code makes it easy to build new ASP.NET Core projects. We'll creat
 
 4. In Visual Studio Code, click `File → Open` and navigate to the directory containing the new ASP.NET Core project.
 
-5. Observe the ﬁles that were automatically generated. Re-open the Terminal window.
+5. Observe the files that were automatically generated. Re-open the Terminal window.
 
 6. Start the project by typing `dotnet run` and visiting <http://localhost:5000>. To stop the application, enter `Ctrl+C`.
 
@@ -125,29 +125,34 @@ Let's push an app! Here we'll experiment with sending an application to Cloud Fo
 
 3. In Visual Studio Code, create a new ﬁle called `manifest.yml` at base of your project.
 
-4. Open the `manifest.yml` ﬁle, and type in the following (notice the typing assistance from the extension):
+4. Open the `manifest.yml` ﬁle, and type in the following (notice the typing assistance from the extension).  Note: The instructor will have a discussion based on buildpack versioning at Schwab:
 
     ```yml
         ---
         applications:
           - name: core-cf-[enter your name]
-            buildpack: https://github.com/cloudfoundry/dotnet-core-buildpack
+            buildpack: dotnet_core_buildpack_2_1_3
             instances: 1
+            path: .\publish
             memory: 256M
     ```
 
-5. In the Terminal, type in `cf login -a <PCF API url>` and provide your credentials. Now you are connected to Pivotal Cloud Foundry.
+5. In the Terminal, type in `cf login -a https://api.scpsb3sysbdv.dev.schwab.com`.  You will be given a unique number in the workshop, use this number to create credentials (#10 => LabUser10, password10) used to log into the Cloud Foundry. Now you are connected to Pivotal Cloud Foundry.
 
-6. Enter `cf push` into the Terminal, and watch your application get bundled up and deploy to Cloud Foundry.
+6. Once logged in there may (and most likely will) be several applications and services already deployed into your space.  You can see the applications and service deployed in your space from the UI or from the CLI with the respective commands `cf apps` and `cf services`   You can delete these services and apps from the UI or alternatively through the CLI.  The commands to delete apps and services from the command line are `cf delete <app-name>` and `cf delete-service <service-name>` respectively.
 
-7. In Pivotal Cloud Foundry Apps Manager, see your app show up, and visit the app’s URL.
+7. Build your application using the following command.  `dotnet publish -o .\publish`.  This will build your application and create a publish directory containing your application assemblies.  Note the instructor will speak about Nuget and the Schwab network.  
 
-8. Use git to clone the following repository https://github.com/tezizzm/pcf-dotnet-environment-viewer.git.
+8. Enter `cf push` into the Terminal, and watch your application get bundled up and deploy to Cloud Foundry.
 
-9. Navigate to the cloned directory and open the solution file in Visual Studio.  Open the manifest file and change the name of your application to something unique.
+9. In Pivotal Cloud Foundry Apps Manager, see your app show up, and visit the app’s URL.
 
-10. Publish the project to a folder at the root of your application named publish.
+10. Use git to clone the following repository (alteratively, on the Schwab network download the zip) https://github.com/tezizzm/pcf-dotnet-environment-viewer.git.
 
-11. Navigate to the publish output directory and Enter `cf push` into the terminal.  Notice once again your application get bundled up and deployed to Cloud Foundry.
+11. Navigate to the cloned directory and open the solution file in __Visual Studio__.  Open the manifest file and change the name of your application to something unique.
 
-12. See if you can spot any differences in the output when executing the `cf push` command in step 6 and step 10.
+12. Publish the project to a folder at the root of your application named publish.
+
+13. Navigate to the publish output directory and Enter `cf push` into the terminal.  Notice once again your application get bundled up and deployed to Cloud Foundry.
+
+14. See if you can spot any differences in the output when executing the `cf push` command in step 6 and step 10.

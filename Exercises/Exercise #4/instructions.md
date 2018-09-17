@@ -1,4 +1,4 @@
-# Exercise #3
+# Exercise #4
 
 ## Goal
 
@@ -15,7 +15,7 @@ This exercise helps us understand how to register our microservices with the Spr
 1. In the existing microservice project, add a Nuget package dependency by entering the following command into the Terminal.
 
     ```Windows
-    dotnet add package Pivotal.Discovery.ClientCore --version 2.1.0
+    dotnet add package Pivotal.Discovery.ClientCore --version 2.0.0
     ```
 
     *If you weren’t using Spring Cloud Services, you could use a vanilla Steeltoe package for service discovery: **Steeltoe.Discovery.ClientCore**.*
@@ -103,6 +103,7 @@ This exercise helps us understand how to register our microservices with the Spr
     - name: core-cf-microservice-<enter your application name>
         instances: 1
         memory: 256M
+        path: .\publish
         # determines which environment to pull configs from
         env:
         ASPNETCORE_ENVIRONMENT: qa
@@ -110,12 +111,13 @@ This exercise helps us understand how to register our microservices with the Spr
         - <your configuration service name>
     +   - <your registry name
     ```
+6. Build your application using the following command.  `dotnet publish -o .\publish`.
 
-6. Push the application ( `cf push` ). Go "manage" the `Service Registry` instance from within Apps Manager. Notice our service is now listed!
+7. Push the application ( `cf push` ). Go "manage" the `Service Registry` instance from within Apps Manager. Notice our service is now listed!
 
 ## Download and open up front-end ASP.NET Core application
 
-Conﬁgure a pre-built front end app so that it discovers our products microservice.
+Configure a pre-built front end app so that it discovers our products microservice.
 
 1. Go to <https://github.com/tezizzm/cloud-native-net-sampleui> to download the pre-built front-end application.
 
@@ -167,6 +169,8 @@ Replace placeholder values so that your app talks to your own microservice.
 
 3. In `manifest.yml`, replace the "application name" and "service registry name" placeholders.
 
-4. Push your application to Cloud Foundry ( `cf push` ).
+4. Build your application using the following command.  `dotnet publish -o .\publish`.
 
-5. Go to the `/Home` endpoint of your application. You should see the web page with products retrieved from your data microservices.
+5. Push your application to Cloud Foundry ( `cf push` ).
+
+6. Go to the `/Home` endpoint of your application. You should see the web page with products retrieved from your data microservices.

@@ -1,6 +1,7 @@
 ---
   applications:
     - name: core-cf-martez
-      buildpack: https://github.com/cloudfoundry/dotnet-core-buildpack
+      buildpack: dotnet_core_buildpack_2_1_3
       instances: 1
+      path: .\publish
       memory: 256M

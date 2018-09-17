@@ -1,7 +1,9 @@
 ---
 applications:
 - name: sample-ui-martez
+buildpack: dotnet_core_buildpack_2_1_3
 instances: 1
+path: .\publish
 memory: 256M
 services:
 - myDiscoveryService

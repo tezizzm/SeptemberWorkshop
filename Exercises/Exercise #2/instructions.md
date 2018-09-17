@@ -1,4 +1,4 @@
-# Exercise #1
+# Exercise #2
 
 ## Goal
 
@@ -10,7 +10,7 @@ Spring Cloud Services instances of Configuration Server and Service Registry dep
 
 ## Introduction
 
-In this exercise, we'll continue setting up our cloud environment so that we're ready to build and run modern .NET applications. 
+In this exercise, we'll continue setting up our cloud environment so that we're ready to build and run modern .NET applications.
 
 ## Instantiate Spring Cloud Services instances
 
